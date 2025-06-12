@@ -1,0 +1,434 @@
+[
+    {
+      "ci": "6309493",
+      "nombre": "Toribio",
+      "apellido_paterno": "Lozano",
+      "apellido_materno": "Pastor",
+      "telefono": "76309493",
+      "email": "agepic-6309493@yopmail.com",
+      "fecha_nacimiento": "08/07/1989"
+    },
+    {
+      "ci": "2478559",
+      "nombre": "Mohamed",
+      "apellido_paterno": "Fuentes",
+      "apellido_materno": "Lorenzo",
+      "telefono": "72478559",
+      "email": "agepic-2478559@yopmail.com",
+      "fecha_nacimiento": "15/03/1986"
+    },
+    {
+      "ci": "2979526",
+      "nombre": "Ariadna",
+      "apellido_paterno": "González",
+      "apellido_materno": "Díaz",
+      "telefono": "72979526",
+      "email": "agepic-2979526@yopmail.com",
+      "fecha_nacimiento": "10/06/1987"
+    },
+    {
+      "ci": "8028300",
+      "nombre": "Joan",
+      "apellido_paterno": "Calvo",
+      "apellido_materno": "Iglesias",
+      "telefono": "78028300",
+      "email": "agepic-8028300@yopmail.com",
+      "fecha_nacimiento": "21/02/1998"
+    },
+    {
+      "ci": "4335755",
+      "nombre": "Mariano",
+      "apellido_paterno": "Hernández",
+      "apellido_materno": "Romero",
+      "telefono": "74335755",
+      "email": "agepic-4335755@yopmail.com",
+      "fecha_nacimiento": "22/08/1986"
+    },
+    {
+      "ci": "3943152",
+      "nombre": "Abrahán",
+      "apellido_paterno": "Campos",
+      "apellido_materno": "Martín",
+      "telefono": "73943152",
+      "email": "agepic-3943152@yopmail.com",
+      "fecha_nacimiento": "13/03/1984"
+    },
+    {
+      "ci": "4895654",
+      "nombre": "Iván",
+      "apellido_paterno": "Romero",
+      "apellido_materno": "Domínguez",
+      "telefono": "74895654",
+      "email": "agepic-4895654@yopmail.com",
+      "fecha_nacimiento": "13/05/1992"
+    },
+    {
+      "ci": "3425374",
+      "nombre": "Mario",
+      "apellido_paterno": "Cruz",
+      "apellido_materno": "Márquez",
+      "telefono": "73425374",
+      "email": "agepic-3425374@yopmail.com",
+      "fecha_nacimiento": "26/05/1997"
+    },
+    {
+      "ci": "4344006",
+      "nombre": "Nazario",
+      "apellido_paterno": "Nieto",
+      "apellido_materno": "Rey",
+      "telefono": "74344006",
+      "email": "agepic-4344006@yopmail.com",
+      "fecha_nacimiento": "18/03/1992"
+    },
+    {
+      "ci": "4209365",
+      "nombre": "Eulalia",
+      "apellido_paterno": "Gallardo",
+      "apellido_materno": "Jiménez",
+      "telefono": "74209365",
+      "email": "agepic-4209365@yopmail.com",
+      "fecha_nacimiento": "16/12/1995"
+    },
+    {
+      "ci": "7923103",
+      "nombre": "Teófila",
+      "apellido_paterno": "Cano",
+      "apellido_materno": "Pascual",
+      "telefono": "77923103",
+      "email": "agepic-7923103@yopmail.com",
+      "fecha_nacimiento": "09/12/2000"
+    },
+    {
+      "ci": "7747248",
+      "nombre": "Montserrat",
+      "apellido_paterno": "Prieto",
+      "apellido_materno": "Serrano",
+      "telefono": "77747248",
+      "email": "agepic-7747248@yopmail.com",
+      "fecha_nacimiento": "12/03/1992"
+    },
+    {
+      "ci": "4315210",
+      "nombre": "Arnaldo",
+      "apellido_paterno": "León",
+      "apellido_materno": "Cambil",
+      "telefono": "74315210",
+      "email": "agepic-4315210@yopmail.com",
+      "fecha_nacimiento": "27/05/1992"
+    },
+    {
+      "ci": "6459420",
+      "nombre": "Almudena",
+      "apellido_paterno": "Sánchez",
+      "apellido_materno": "Soler",
+      "telefono": "76459420",
+      "email": "agepic-6459420@yopmail.com",
+      "fecha_nacimiento": "04/08/1989"
+    },
+    {
+      "ci": "5004558",
+      "nombre": "Bernabé",
+      "apellido_paterno": "García",
+      "apellido_materno": "León",
+      "telefono": "75004558",
+      "email": "agepic-5004558@yopmail.com",
+      "fecha_nacimiento": "14/01/1991"
+    },
+    {
+      "ci": "4093638",
+      "nombre": "Honorio",
+      "apellido_paterno": "Ramírez",
+      "apellido_materno": "Martínez",
+      "telefono": "74093638",
+      "email": "agepic-4093638@yopmail.com",
+      "fecha_nacimiento": "16/06/1999"
+    },
+    {
+      "ci": "8377901",
+      "nombre": "Amparo",
+      "apellido_paterno": "Núñez",
+      "apellido_materno": "Campos",
+      "telefono": "78377901",
+      "email": "agepic-8377901@yopmail.com",
+      "fecha_nacimiento": "01/09/1993"
+    },
+    {
+      "ci": "4637775",
+      "nombre": "Rosendo",
+      "apellido_paterno": "Gutiérrez",
+      "apellido_materno": "Álvarez",
+      "telefono": "74637775",
+      "email": "agepic-4637775@yopmail.com",
+      "fecha_nacimiento": "07/01/1998"
+    },
+    {
+      "ci": "4185666",
+      "nombre": "Guillermo",
+      "apellido_paterno": "Bravo",
+      "apellido_materno": "Guerrero",
+      "telefono": "74185666",
+      "email": "agepic-4185666@yopmail.com",
+      "fecha_nacimiento": "07/01/1981"
+    },
+    {
+      "ci": "5388402",
+      "nombre": "Ana",
+      "apellido_paterno": "Montero",
+      "apellido_materno": "Blanco",
+      "telefono": "75388402",
+      "email": "agepic-5388402@yopmail.com",
+      "fecha_nacimiento": "30/05/2000"
+    },
+    {
+      "ci": "4826317",
+      "nombre": "Daniel",
+      "apellido_paterno": "Cruz",
+      "apellido_materno": "Santana",
+      "telefono": "74826317",
+      "email": "agepic-4826317@yopmail.com",
+      "fecha_nacimiento": "02/12/1985"
+    },
+    {
+      "ci": "5116811",
+      "nombre": "Silvia",
+      "apellido_paterno": "Mora",
+      "apellido_materno": "Molina",
+      "telefono": "75116811",
+      "email": "agepic-5116811@yopmail.com",
+      "fecha_nacimiento": "08/07/1998"
+    },
+    {
+      "ci": "2615828",
+      "nombre": "Susana",
+      "apellido_paterno": "Herrero",
+      "apellido_materno": "Vidal",
+      "telefono": "72615828",
+      "email": "agepic-2615828@yopmail.com",
+      "fecha_nacimiento": "12/05/1999"
+    },
+    {
+      "ci": "6893987",
+      "nombre": "Pascual",
+      "apellido_paterno": "Iglesias",
+      "apellido_materno": "Rodríguez",
+      "telefono": "76893987",
+      "email": "agepic-6893987@yopmail.com",
+      "fecha_nacimiento": "03/03/1992"
+    },
+    {
+      "ci": "3705929",
+      "nombre": "Edgar",
+      "apellido_paterno": "Guerrero",
+      "apellido_materno": "Durán",
+      "telefono": "73705929",
+      "email": "agepic-3705929@yopmail.com",
+      "fecha_nacimiento": "21/12/1989"
+    },
+    {
+      "ci": "9773963",
+      "nombre": "Lucas",
+      "apellido_paterno": "Carmona",
+      "apellido_materno": "Ruiz",
+      "telefono": "79773963",
+      "email": "agepic-9773963@yopmail.com",
+      "fecha_nacimiento": "11/08/1987"
+    },
+    {
+      "ci": "3286720",
+      "nombre": "Lucano",
+      "apellido_paterno": "Vargas",
+      "apellido_materno": "Vicente",
+      "telefono": "73286720",
+      "email": "agepic-3286720@yopmail.com",
+      "fecha_nacimiento": "27/07/1981"
+    },
+    {
+      "ci": "456789",
+      "nombre": "Ana",
+      "apellido_paterno": "Hernández",
+      "apellido_materno": "Ruiz",
+      "telefono": "70578690",
+      "email": "70578690@yopmail.com",
+      "fecha_nacimiento": "21/02/1987"
+    },
+    {
+      "ci": "567890",
+      "nombre": "Luis",
+      "apellido_paterno": "Díaz",
+      "apellido_materno": "García",
+      "telefono": "71984526",
+      "email": "71984526@yopmail.com",
+      "fecha_nacimiento": "16/07/1992"
+    },
+    {
+      "ci": "678901",
+      "nombre": "Carla",
+      "apellido_paterno": "Soto",
+      "apellido_materno": "Vargas",
+      "telefono": "70793068",
+      "email": "70793068@yopmail.com",
+      "fecha_nacimiento": "28/12/1997"
+    },
+    {
+      "ci": "789012",
+      "nombre": "Jorge",
+      "apellido_paterno": "Fernández",
+      "apellido_materno": "González",
+      "telefono": "75618390",
+      "email": "75618390@yopmail.com",
+      "fecha_nacimiento": "14/04/1989"
+    },
+    {
+      "ci": "890123",
+      "nombre": "Isabel",
+      "apellido_paterno": "Torres",
+      "apellido_materno": "Pérez",
+      "telefono": "74105687",
+      "email": "74105687@yopmail.com",
+      "fecha_nacimiento": "25/09/1993"
+    },
+    {
+      "ci": "901234",
+      "nombre": "Manuel",
+      "apellido_paterno": "Morales",
+      "apellido_materno": "García",
+      "telefono": "74983026",
+      "email": "74983026@yopmail.com",
+      "fecha_nacimiento": "08/06/1984"
+    },
+    {
+      "ci": "8917634",
+      "nombre": "Juan",
+      "apellido_paterno": "Pérez",
+      "apellido_materno": "González",
+      "telefono": "71234567",
+      "email": "71234567@yopmail.com",
+      "fecha_nacimiento": "01/01/1990"
+    },
+    {
+      "ci": "6793181",
+      "nombre": "María",
+      "apellido_paterno": "García",
+      "apellido_materno": "Hernández",
+      "telefono": "71234568",
+      "email": "71234568@yopmail.com",
+      "fecha_nacimiento": "02/02/1991"
+    },
+    {
+      "ci": "5376438",
+      "nombre": "Ana",
+      "apellido_paterno": "Sánchez",
+      "apellido_materno": "López",
+      "telefono": "71234570",
+      "email": "71234569@yopmail.com",
+      "fecha_nacimiento": "04/04/1993"
+    },
+    {
+      "ci": "8037825",
+      "nombre": "Pedro",
+      "apellido_paterno": "Gómez",
+      "apellido_materno": "Martínez",
+      "telefono": "71234569",
+      "email": "71234570@yopmail.com",
+      "fecha_nacimiento": "03/03/1992"
+    },
+    {
+      "ci": "9478201",
+      "nombre": "Luis",
+      "apellido_paterno": "Martín",
+      "apellido_materno": "Ramírez",
+      "telefono": "71234571",
+      "email": "71234571@yopmail.com",
+      "fecha_nacimiento": "05/05/1994"
+    },
+    {
+      "ci": "7180496",
+      "nombre": "Laura",
+      "apellido_paterno": "Torres",
+      "apellido_materno": "Flores",
+      "telefono": "71234572",
+      "email": "71234572@yopmail.com",
+      "fecha_nacimiento": "06/06/1995"
+    },
+    {
+      "ci": "1630257",
+      "nombre": "Jorge",
+      "apellido_paterno": "Herrera",
+      "apellido_materno": "García",
+      "telefono": "71234573",
+      "email": "71234573@yopmail.com",
+      "fecha_nacimiento": "07/07/1996"
+    },
+    {
+      "ci": "3749021",
+      "nombre": "Carla",
+      "apellido_paterno": "Díaz",
+      "apellido_materno": "Gómez",
+      "telefono": "71234574",
+      "email": "71234574@yopmail.com",
+      "fecha_nacimiento": "08/08/1997"
+    },
+    {
+      "ci": "6894275",
+      "nombre": "Pablo",
+      "apellido_paterno": "Ruiz",
+      "apellido_materno": "González",
+      "telefono": "71234575",
+      "email": "71234575@yopmail.com",
+      "fecha_nacimiento": "09/09/1998"
+    },
+    {
+      "ci": "5823976",
+      "nombre": "David",
+      "apellido_paterno": "Pérez",
+      "apellido_materno": "García",
+      "telefono": "71234577",
+      "email": "71234577@yopmail.com",
+      "fecha_nacimiento": "11/11/2000"
+    },
+    {
+      "ci": "2345609",
+      "nombre": "Mariana",
+      "apellido_paterno": "Rodríguez",
+      "apellido_materno": "Hernández",
+      "telefono": "71234578",
+      "email": "71234578@yopmail.com",
+      "fecha_nacimiento": "12/12/2001"
+    },
+    {
+      "ci": "9685710",
+      "nombre": "Gabriel",
+      "apellido_paterno": "García",
+      "apellido_materno": "Martínez",
+      "telefono": "71234579",
+      "email": "71234579@yopmail.com",
+      "fecha_nacimiento": "13/01/2002"
+    },
+    {
+      "ci": "1057823",
+      "nombre": "Valentina",
+      "apellido_paterno": "López",
+      "apellido_materno": "Sánchez",
+      "telefono": "71234580",
+      "email": "71234580@yopmail.com",
+      "fecha_nacimiento": "14/02/2003"
+    },
+    {
+      "ci": "4432197",
+      "nombre": "Adrián",
+      "apellido_paterno": "Ramírez",
+      "apellido_materno": "Gómez",
+      "telefono": "71234581",
+      "email": "71234581@yopmail.com",
+      "fecha_nacimiento": "15/03/2004"
+    },
+    {
+      "ci": "5602708-1H",
+      "nombre": "RICARDO",
+      "apellido_paterno": "AGUILERA",
+      "apellido_materno": "JIMENEZ",
+      "telefono": "74219873",
+      "email": "juangarcia@yopmail.com",
+      "fecha_nacimiento": "21/07/1983"
+    }
+  ]
