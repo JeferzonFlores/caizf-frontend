@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image';
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -68,6 +69,16 @@ const Sidebar: React.FC = () => {
     <>
       <ScrollArea className="flex-1">
         <nav className="flex flex-col p-4">
+                  <div className="hidden bg-muted lg:block" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50%' }}>
+                    <Image
+                      src="/Logo/mdpyep-vertical.png"
+                      alt="Image"
+                      width="180"
+                      height="300"
+                      priority={false}
+                      className="object-cover"
+                    />
+                  </div>
           <Accordion type="multiple" defaultValue={initialOpenSections}>
             {menuStructure.map((section) => (
               <AccordionItem key={section.section} value={section.section}>

@@ -78,21 +78,35 @@ export default function Login() {
 
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-      <div className="hidden bg-muted lg:block">
-        <Image
-          src="/placeholder.svg"
-          alt="Image"
-          width="1920"
-          height="1080"
-          priority={false}
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+      <div className="hidden bg-muted lg:block" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+        <div className="hidden bg-muted lg:block" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+          <Image
+            src="/Login/LoginCA2.png"
+            alt="Image"
+            width="200"
+            height="300"
+            priority={false}
+            className="object-cover"
+          />
+        </div>
       </div>
-      <div className="flex h-screen items-center justify-center bg-background dark:bg-gray-900">
-        <div className="mx-auto w-[350px] space-y-6">
+
+      {/* Sección del formulario de inicio de sesión */}
+      <div className="flex h-screen items-center justify-center bg-background dark:bg-gray-900 px-4 sm:px-6"> {/* Añade padding horizontal para móviles */}
+        <div className="mx-auto w-full max-w-md space-y-6"> {/* **Cambio clave aquí:** w-full para ancho completo, max-w-md para limitar en escritorios */}
           <div className="space-y-2 text-center">
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Image
+                src="/Logo/mdpyep-horizontal.png"
+                alt="Logo de MDPyEP"
+                width={600} // Ancho intrínseco
+                height={400} // Alto intrínseco
+                priority={false}
+                className="object-contain max-w-[80%] h-auto sm:max-w-[70%] md:max-w-[60%] lg:max-w-[80%]"
+              />
+            </div>
             <h1 className="text-3xl font-bold text-foreground dark:text-gray-100">
-              Inicio de sesión
+              Bienvenidos a CAIZF
             </h1>
             <p className="text-balance text-muted-foreground dark:text-gray-400 pt-2">
               Ingresa tus credenciales para iniciar sesión
@@ -157,9 +171,8 @@ export default function Login() {
               />
               <Link
                 href="/recuperacion"
-                className={`inline-block text-sm underline dark:text-gray-300 hover:text-primary dark:hover:text-gray-100 ${
-                  isLoggingIn ? 'pointer-events-none opacity-50' : ''
-                }`}
+                className={`inline-block text-sm underline dark:text-gray-300 hover:text-primary dark:hover:text-gray-100 ${isLoggingIn ? 'pointer-events-none opacity-50' : ''
+                  }`}
               >
                 ¿Olvidaste tu contraseña?
               </Link>
@@ -189,9 +202,8 @@ export default function Login() {
             No tienes una cuenta?{' '}
             <Link
               href="/registro"
-              className={`underline hover:text-primary dark:hover:text-gray-100 ${
-                isLoggingIn ? 'pointer-events-none opacity-50' : ''
-              }`}
+              className={`underline hover:text-primary dark:hover:text-gray-100 ${isLoggingIn ? 'pointer-events-none opacity-50' : ''
+                }`}
             >
               Regístrate
             </Link>

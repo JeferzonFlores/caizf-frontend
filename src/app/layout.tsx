@@ -13,7 +13,7 @@ import ReactQueryProvider from '@/contexts/ReactQueryProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Frontend base',
+  title: 'CAIZF',
   description: 'Creado con NextJS (App Router) y Tailwind (Shadcn/ui)',
 }
 
@@ -25,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
+      
         <ReactQueryProvider>
           <ThemeProvider
             attribute="class"
