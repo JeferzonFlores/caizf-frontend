@@ -34,18 +34,18 @@ import {
 import { useDebounce } from 'use-debounce'
 import { toast } from 'sonner'
 import { ParametrosFiltros } from '@/app/admin/(configuracion)/parametros/componentes/ParametrosFiltros'
-import { VerPaisModal } from '@/app/admin/(parametros)/Pais/componentes/VerPaisModal'
-import { AgregarEditarPaisModal } from '@/app/admin/(parametros)/Pais/componentes/AgregarEditarPaisModal'
-import { ActivarPaisModal } from '@/app/admin/(parametros)/Pais/componentes/ActivarPaisModal'
-import { InactivarPaisModal } from '@/app/admin/(parametros)/Pais/componentes/InactivarPaisModal'
+import { VerInstitucionModal } from '@/app/admin/(parametros)/institucion/componentes/VerInstitucionModal'
+import { AgregarEditarInstitucionModal } from '@/app/admin/(parametros)/institucion/componentes/AgregarEditarInstitucionModal' 
+import { ActivarDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/ActivarParametroModal'
+import { InactivarDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/InactivarParametroModal'
 import {
-  Pais,
-  PaisResponse,
-} from '@/app/admin/(parametros)/Pais/componentes/types'
+  Institucion,
+  InstitucionResponse,
+} from '@/app/admin/(parametros)/institucion/componentes/types'
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-export function PaisDatatable() {
+export function InstitucionDatatable() {
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -55,7 +55,7 @@ export function PaisDatatable() {
     filter: '',
   })
   const [debouncedFilter] = useDebounce(filters.filter, 500)
-  const [selectedPais, setSelectedPais] = useState<Pais | null>(
+  const [selectedInstitucion, setSelectedInstitucion] = useState<Institucion | null>(
     null
   )
   const [verModalOpen, setVerModalOpen] = useState(false)
@@ -87,7 +87,7 @@ export function PaisDatatable() {
     fetchPermissions().catch(print)
   }, [checkPermission])
 
-  const fetchParametros = async () => {
+  const fetchInstitucion = async () => {
     const params: Record<string, string> = {
       pagina: (pagination.pageIndex + 1).toString(),
       limite: pagination.pageSize.toString(),
@@ -102,8 +102,8 @@ export function PaisDatatable() {
       params.filtro = debouncedFilter.trim()
     }
 
-    const response = await sessionRequest<PaisResponse>({
-      url: '/country',
+    const response = await sessionRequest<InstitucionResponse>({
+      url: '/institution',
       method: 'get',
       params,
     })
@@ -112,16 +112,16 @@ export function PaisDatatable() {
   }
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['pais', pagination, sorting, debouncedFilter],
-    queryFn: fetchParametros,
+    queryKey: ['institucion', pagination, sorting, debouncedFilter],
+    queryFn: fetchInstitucion,
     placeholderData: keepPreviousData,
   })
 
-  const reloadPais = async () => {
-    await queryClient.invalidateQueries({ queryKey: ['pais'] })
+  const reloadInstitucion = async () => {
+    await queryClient.invalidateQueries({ queryKey: ['institucion'] })
   }
 
-  const columns: ColumnDef<Pais>[] = [
+  const columns: ColumnDef<Institucion>[] = [
     {
       accessorKey: 'codigo',
       header: ({ column }) => <SortableHeader column={column} title="Código" />,
@@ -131,19 +131,19 @@ export function PaisDatatable() {
       meta: { mobileTitle: 'Código' },
     },
     {
-      accessorKey: 'pais',
-      header: ({ column }) => <SortableHeader column={column} title="Pais" />,
-      meta: { mobileTitle: 'Nombre' },
+      accessorKey: 'institucion',
+      header: ({ column }) => <SortableHeader column={column} title="Institucion" />,
+      meta: { mobileTitle: 'Institucion' },
     },
     {
-      accessorKey: 'descripcion',
-      header: 'Descripción',
+      accessorKey: 'direccion',
+      header: 'Direccion',
       cell: ({ row }) => (
-        <div className="max-w-xs truncate" title={row.original.descripcion}>
-          {row.original.descripcion}
+        <div className="max-w-xs truncate" title={row.original.direccion}>
+          {row.original.direccion}
         </div>
       ),
-      meta: { mobileTitle: 'Descripción' },
+      meta: { mobileTitle: 'Direccion' },
     },
 
     {
@@ -167,7 +167,7 @@ export function PaisDatatable() {
               title='Ver detalle'
               variant="outline"
               size="icon"
-              onClick={() => handleVerPais(row.original)}
+              onClick={() => handleVerInstitucion(row.original)}
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -178,7 +178,7 @@ export function PaisDatatable() {
                 title="Editar"
                 variant="outline"
                 size="icon"
-                onClick={() => handleAgregarEditarPais(row.original)}
+                onClick={() => handleAgregarEditarInstitucion(row.original)}
               >
                 <Edit className="h-4 w-4" />
               </Button>
@@ -235,23 +235,23 @@ export function PaisDatatable() {
     setFilters({ filter: '' })
   }
 
-  const handleVerPais = (pais: Pais) => {
-    setSelectedPais(pais)
+  const handleVerinstitucion = (institucion: Institucion) => {
+    setSelectedInstitucion(institucion)
     setVerModalOpen(true)
   }
 
-  const handleAgregarEditarPais = (pais: Pais | null) => {
-    setSelectedPais(pais)
+  const handleAgregarEditarInstitucion = (institucion: Institucion | null) => {
+    setSelectedInstitucion(institucion)
     setAgregarEditarModalOpen(true)
   }
 
-  const handleActivarParametro = (pais: Pais) => {
-    setSelectedPais(pais)
+  const handleActivarParametro = (institucion: Institucion) => {
+    setSelectedInstitucion(institucion)
     setActivarModalOpen(true)
   }
 
-  const handleInactivarParametro = (pais: Pais) => {
-    setSelectedPais(pais)
+  const handleInactivarParametro = (departamento: Institucion) => {
+    setSelectedInstitucion(departamento)
     setInactivarModalOpen(true)
   }
 
@@ -264,7 +264,7 @@ export function PaisDatatable() {
   return (
     <div className="lg:px-8 lg:py-2 sm:px-1 sm:py-2">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-        <h1 className="text-2xl font-bold">Gestión de Paises</h1>
+        <h1 className="text-2xl font-bold">Gestión de Instituciones</h1>
         <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2">
           <Button id='buscarParametro' size={'sm'} onClick={toggleFilters} variant={'outline'}>
             {showFilters ? (
@@ -278,18 +278,18 @@ export function PaisDatatable() {
             size={'sm'}
             variant={'outline'}
             onClick={async () => {
-              await reloadPais()
+              await reloadInstitucion()
             }}
           >
             <RefreshCw className="mr-2 h-4 w-4" /> Recargar
           </Button>
           {permissions.create && (
             <Button
-              id='agregarParametro'
+              id='agregarDepartamento'
               size={'sm'}
-              onClick={() => handleAgregarEditarPais(null)}
+              onClick={() => handleAgregarEditarInstitucion(null)}
             >
-              <Plus className="mr-2 h-4 w-4" /> Agregar País
+              <Plus className="mr-2 h-4 w-4" /> Agregar Institucion
             </Button>
           )}
         </div>
@@ -315,34 +315,34 @@ export function PaisDatatable() {
         />
       )}
       {verModalOpen && (
-        <VerPaisModal
-          pais={selectedPais}
+        <VerInstitucionModal
+          institucion={selectedInstitucion}
           isOpen={verModalOpen}
           onClose={() => setVerModalOpen(false)}
         />
       )}
       {editarModalOpen && (
-        <AgregarEditarPaisModal
-          pais={selectedPais}
+        <AgregarEditarInstitucionModal
+          institucion={selectedInstitucion}
           isOpen={editarModalOpen}
           onClose={() => setAgregarEditarModalOpen(false)}
-          onSuccess={reloadPais}
+          onSuccess={reloadInstitucion}
         />
       )}
       {activarModalOpen && (
-        <ActivarPaisModal
-          pais={selectedPais}
+        <ActivarDepartamentoModal
+          departamento={selectedDepartamento}
           isOpen={activarModalOpen}
           onClose={() => setActivarModalOpen(false)}
-          onSuccess={reloadPais}
+          onSuccess={reloadDepartamentos}
         />
       )}
       {inactivarModalOpen && (
-        <InactivarPaisModal
-          pais={selectedPais}
+        <InactivarDepartamentoModal
+          departamento={selectedDepartamento}
           isOpen={inactivarModalOpen}
           onClose={() => setInactivarModalOpen(false)}
-          onSuccess={reloadPais}
+          onSuccess={reloadDepartamentos}
         />
       )}
     </div>

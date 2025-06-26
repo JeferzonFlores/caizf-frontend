@@ -33,19 +33,19 @@ import {
 } from 'lucide-react'
 import { useDebounce } from 'use-debounce'
 import { toast } from 'sonner'
-import { ParametrosFiltros } from '@/app/admin/(configuracion)/parametros/componentes/ParametrosFiltros'
-import { VerPaisModal } from '@/app/admin/(parametros)/Pais/componentes/VerPaisModal'
-import { AgregarEditarPaisModal } from '@/app/admin/(parametros)/Pais/componentes/AgregarEditarPaisModal'
-import { ActivarPaisModal } from '@/app/admin/(parametros)/Pais/componentes/ActivarPaisModal'
-import { InactivarPaisModal } from '@/app/admin/(parametros)/Pais/componentes/InactivarPaisModal'
+import { ParametrosFiltros } from '@/app/admin/(parametros)/medida/componentes/ParametrosFiltros'
+import { VerMedidaModal } from '@/app/admin/(parametros)/medida/componentes/VerMedidaModal'
+import { AgregarEditarMedidaModal } from '@/app/admin/(parametros)/medida/componentes/AgregarEditarMedidaModal' 
+import { ActivarMedidaModal } from '@/app/admin/(parametros)/medida/componentes/ActivarParametroModal'
+import { InactivarDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/InactivarParametroModal'
 import {
-  Pais,
-  PaisResponse,
-} from '@/app/admin/(parametros)/Pais/componentes/types'
+  Medida,
+  MedidaResponse,
+} from '@/app/admin/(parametros)/medida/componentes/types'
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-export function PaisDatatable() {
+export function MedidaDatatable() {
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -55,7 +55,7 @@ export function PaisDatatable() {
     filter: '',
   })
   const [debouncedFilter] = useDebounce(filters.filter, 500)
-  const [selectedPais, setSelectedPais] = useState<Pais | null>(
+  const [selectedMedida, setSelectedMedida] = useState<Medida | null>(
     null
   )
   const [verModalOpen, setVerModalOpen] = useState(false)
@@ -87,7 +87,7 @@ export function PaisDatatable() {
     fetchPermissions().catch(print)
   }, [checkPermission])
 
-  const fetchParametros = async () => {
+  const fetchMedida = async () => {
     const params: Record<string, string> = {
       pagina: (pagination.pageIndex + 1).toString(),
       limite: pagination.pageSize.toString(),
@@ -102,8 +102,8 @@ export function PaisDatatable() {
       params.filtro = debouncedFilter.trim()
     }
 
-    const response = await sessionRequest<PaisResponse>({
-      url: '/country',
+    const response = await sessionRequest<MedidaResponse>({
+      url: '/unit',
       method: 'get',
       params,
     })
@@ -112,16 +112,16 @@ export function PaisDatatable() {
   }
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['pais', pagination, sorting, debouncedFilter],
-    queryFn: fetchParametros,
+    queryKey: ['medidas', pagination, sorting, debouncedFilter],
+    queryFn: fetchMedida,
     placeholderData: keepPreviousData,
   })
 
-  const reloadPais = async () => {
-    await queryClient.invalidateQueries({ queryKey: ['pais'] })
+  const reloadMedidas = async () => {
+    await queryClient.invalidateQueries({ queryKey: ['medidas'] })
   }
 
-  const columns: ColumnDef<Pais>[] = [
+  const columns: ColumnDef<Medida>[] = [
     {
       accessorKey: 'codigo',
       header: ({ column }) => <SortableHeader column={column} title="Código" />,
@@ -131,9 +131,9 @@ export function PaisDatatable() {
       meta: { mobileTitle: 'Código' },
     },
     {
-      accessorKey: 'pais',
-      header: ({ column }) => <SortableHeader column={column} title="Pais" />,
-      meta: { mobileTitle: 'Nombre' },
+      accessorKey: 'unidad',
+      header: ({ column }) => <SortableHeader column={column} title="U./Medida" />,
+      meta: { mobileTitle: 'U./Medida' },
     },
     {
       accessorKey: 'descripcion',
@@ -167,7 +167,7 @@ export function PaisDatatable() {
               title='Ver detalle'
               variant="outline"
               size="icon"
-              onClick={() => handleVerPais(row.original)}
+              onClick={() => handleVerMedida(row.original)}
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -178,7 +178,7 @@ export function PaisDatatable() {
                 title="Editar"
                 variant="outline"
                 size="icon"
-                onClick={() => handleAgregarEditarPais(row.original)}
+                onClick={() => handleAgregarEditarMedida(row.original)}
               >
                 <Edit className="h-4 w-4" />
               </Button>
@@ -235,23 +235,23 @@ export function PaisDatatable() {
     setFilters({ filter: '' })
   }
 
-  const handleVerPais = (pais: Pais) => {
-    setSelectedPais(pais)
+  const handleVerMedida = (medida: Medida) => {
+    setSelectedMedida(medida)
     setVerModalOpen(true)
   }
 
-  const handleAgregarEditarPais = (pais: Pais | null) => {
-    setSelectedPais(pais)
+  const handleAgregarEditarMedida = (medida: Medida | null) => {
+    setSelectedMedida(medida)
     setAgregarEditarModalOpen(true)
   }
 
-  const handleActivarParametro = (pais: Pais) => {
-    setSelectedPais(pais)
+  const handleActivarParametro = (medida: Medida) => {
+    setSelectedMedida(medida)
     setActivarModalOpen(true)
   }
 
-  const handleInactivarParametro = (pais: Pais) => {
-    setSelectedPais(pais)
+  const handleInactivarParametro = (medida: Medida) => {
+    setSelectedMedida(medida)
     setInactivarModalOpen(true)
   }
 
@@ -264,7 +264,7 @@ export function PaisDatatable() {
   return (
     <div className="lg:px-8 lg:py-2 sm:px-1 sm:py-2">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-        <h1 className="text-2xl font-bold">Gestión de Paises</h1>
+        <h1 className="text-2xl font-bold">Unidaes de Medida</h1>
         <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2">
           <Button id='buscarParametro' size={'sm'} onClick={toggleFilters} variant={'outline'}>
             {showFilters ? (
@@ -278,18 +278,18 @@ export function PaisDatatable() {
             size={'sm'}
             variant={'outline'}
             onClick={async () => {
-              await reloadPais()
+              await reloadMedidas()
             }}
           >
             <RefreshCw className="mr-2 h-4 w-4" /> Recargar
           </Button>
           {permissions.create && (
             <Button
-              id='agregarParametro'
+              id='agregarDepartamento'
               size={'sm'}
-              onClick={() => handleAgregarEditarPais(null)}
+              onClick={() => handleAgregarEditarMedida(null)}
             >
-              <Plus className="mr-2 h-4 w-4" /> Agregar País
+              <Plus className="mr-2 h-4 w-4" /> Agregar Unidad de Medida
             </Button>
           )}
         </div>
@@ -315,34 +315,34 @@ export function PaisDatatable() {
         />
       )}
       {verModalOpen && (
-        <VerPaisModal
-          pais={selectedPais}
+        <VerMedidaModal
+          medida={selectedMedida}
           isOpen={verModalOpen}
           onClose={() => setVerModalOpen(false)}
         />
       )}
       {editarModalOpen && (
-        <AgregarEditarPaisModal
-          pais={selectedPais}
+        <AgregarEditarMedidaModal
+          medida={selectedMedida}
           isOpen={editarModalOpen}
           onClose={() => setAgregarEditarModalOpen(false)}
-          onSuccess={reloadPais}
+          onSuccess={reloadMedidas}
         />
       )}
       {activarModalOpen && (
-        <ActivarPaisModal
-          pais={selectedPais}
+        <ActivarMedidaModal
+          medida={selectedMedida}
           isOpen={activarModalOpen}
           onClose={() => setActivarModalOpen(false)}
-          onSuccess={reloadPais}
+          onSuccess={reloadMedidas}
         />
       )}
       {inactivarModalOpen && (
-        <InactivarPaisModal
-          pais={selectedPais}
+        <InactivarDepartamentoModal
+          departamento={selectedDepartamento}
           isOpen={inactivarModalOpen}
           onClose={() => setInactivarModalOpen(false)}
-          onSuccess={reloadPais}
+          onSuccess={reloadDepartamentos}
         />
       )}
     </div>

@@ -1,16 +1,16 @@
-export interface Pais {
+export interface Medida {
   estado: string
   id: string
   codigo: string
-  pais: string
+  unidad: string
   descripcion: string
 }
 
-export interface PaisResponse {
+export interface MedidaResponse {
   finalizado: boolean
   mensaje: string
   datos: {
     total: number
-    filas: Pais[]
+    filas: Medida[]
   }
 }

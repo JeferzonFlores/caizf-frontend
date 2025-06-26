@@ -1,4 +1,4 @@
-import { Departamento } from '@/app/admin/(parametros)/departamentos/componentes/types'
+import { Pais } from '@/app/admin/(parametros)/Pais/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,35 +14,35 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface ActivarDepartamentoModalProps {
-  departamento: Departamento | null
+interface InactivarPaisModalProps {
+  pais: Pais | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function ActivarDepartamentoModal({
-  departamento,
+export function InactivarPaisModal({
+  pais,
   isOpen,
   onClose,
   onSuccess,
-}: ActivarDepartamentoModalProps) {
+}: InactivarPaisModalProps) {
   const { sessionRequest } = useAuth()
 
-  const handleActivar = async () => {
-    if (!departamento) return
+  const handleInactivar = async () => {
+    if (!pais) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/parametros/${departamento.id}/activacion`,
+        url: `/country/${pais.id}/inactivacion`,
         method: 'PATCH',
       })
-      toast.success('Parámetro activado', {
+      toast.success('Parámetro inactivado', {
         description: MessageInterpreter(respuesta?.data),
       })
       onSuccess()
     } catch (error) {
-      print('Error al activar parámetro:', error)
+      print('Error al inactivar parámetro:', error)
       toast.error('Error', {
         description: MessageInterpreter(error),
       })
@@ -55,14 +55,16 @@ export function ActivarDepartamentoModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Activar parámetro?</AlertDialogTitle>
+          <AlertDialogTitle>¿Inactivar país?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea activar el parámetro {departamento?.departamento}?
+            ¿Está seguro que desea inactivar el parámetro {pais?.pais}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={handleActivar}>Activar</AlertDialogAction>
+          <AlertDialogAction onClick={handleInactivar}>
+            Inactivar
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

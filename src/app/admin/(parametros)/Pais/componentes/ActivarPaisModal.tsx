@@ -1,4 +1,4 @@
-import { Parametro } from '@/app/admin/(configuracion)/parametros/componentes/types'
+import { Pais } from '@/app/admin/(parametros)/Pais/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,27 +14,27 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface ActivarParametroModalProps {
-  parametro: Parametro | null
+interface ActivarPaisModalProps {
+  pais: Pais | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function ActivarParametroModal({
-  parametro,
+export function ActivarPaisModal({
+  pais,
   isOpen,
   onClose,
   onSuccess,
-}: ActivarParametroModalProps) {
+}: ActivarPaisModalProps) {
   const { sessionRequest } = useAuth()
 
   const handleActivar = async () => {
-    if (!parametro) return
+    if (!pais) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/parametros/${parametro.id}/activacion`,
+        url: `/parametros/${pais.id}/activacion`,
         method: 'PATCH',
       })
       toast.success('Parámetro activado', {
@@ -57,7 +57,7 @@ export function ActivarParametroModal({
         <AlertDialogHeader>
           <AlertDialogTitle>¿Activar parámetro?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea activar el parámetro {parametro?.nombre}?
+            ¿Está seguro que desea activar el parámetro {pais?.pais}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

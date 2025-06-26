@@ -1,4 +1,4 @@
-import { Departamento } from '@/app/admin/(parametros)/departamentos/componentes/types'
+import { Medida } from '@/app/admin/(parametros)/medida/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,27 +14,27 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface ActivarDepartamentoModalProps {
-  departamento: Departamento | null
+interface ActivarMedidaModalProps {
+ medida: Medida | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function ActivarDepartamentoModal({
-  departamento,
+export function ActivarMedidaModal({
+  medida,
   isOpen,
   onClose,
   onSuccess,
-}: ActivarDepartamentoModalProps) {
+}: ActivarMedidaModalProps) {
   const { sessionRequest } = useAuth()
 
   const handleActivar = async () => {
-    if (!departamento) return
+    if (!medida) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/parametros/${departamento.id}/activacion`,
+        url: `/unit/${medida.id}/activacion`,
         method: 'PATCH',
       })
       toast.success('Parámetro activado', {
@@ -55,9 +55,9 @@ export function ActivarDepartamentoModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Activar parámetro?</AlertDialogTitle>
+          <AlertDialogTitle>¿Activar Unidad de Medida?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea activar el parámetro {departamento?.departamento}?
+            ¿Está seguro que desea activar el parámetro {medida?.unidad}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

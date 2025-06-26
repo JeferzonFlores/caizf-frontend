@@ -1,4 +1,4 @@
-import { Parametro } from '@/app/admin/(configuracion)/parametros/componentes/types'
+import { Institucion } from '@/app/admin/(parametros)/institucion/componentes/types'
 import {
   Dialog,
   DialogContent,
@@ -24,8 +24,8 @@ import { toast } from 'sonner'
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface AgregarEditarParametroModalProps {
-  parametro: Parametro | null
+interface AgregarEditarInstitucionModalProps {
+  institucion: Institucion | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
@@ -35,36 +35,37 @@ const formSchema = z.object({
   codigo: z.string().min(1, {
     message: 'El código es obligatorio.',
   }),
-  nombre: z.string().min(1, {
+  institucion: z.string().min(1, {
     message: 'El nombre es obligatorio.',
   }),
-  descripcion: z.string().optional(),
-  grupo: z.string().optional(),
+
+  logo: z.string().optional(),
+  direccion: z.string().optional(),
 })
 
-export function AgregarEditarParametroModal({
-  parametro,
+export function AgregarEditarInstitucionModal({
+  institucion,
   isOpen,
   onClose,
   onSuccess,
-}: AgregarEditarParametroModalProps) {
+}: AgregarEditarInstitucionModalProps) {
   const { sessionRequest } = useAuth()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      codigo: parametro?.codigo,
-      nombre: parametro?.nombre,
-      descripcion: parametro?.descripcion,
-      grupo: parametro?.grupo,
+      codigo: institucion?.codigo,
+      institucion: institucion?.institucion,
+      logo: institucion?.logo,
+      direccion: institucion?.direccion,
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      if (parametro) {
+      if (institucion) {
         const result = await sessionRequest({
-          url: `/parametros/${parametro.id}`,
+          url: `/institution/${institucion.id}`,
           method: 'PATCH',
           data: values,
         })
@@ -73,7 +74,7 @@ export function AgregarEditarParametroModal({
         })
       } else {
         const respuesta = await sessionRequest({
-          url: '/parametros',
+          url: '/institution',
           method: 'POST',
           data: values,
         })
@@ -86,7 +87,7 @@ export function AgregarEditarParametroModal({
     } catch (error) {
       print('Error al guardar el parámetro:', error)
       toast.error(
-        parametro
+        institucion
           ? 'Error al actualizar parámetro'
           : 'Error al guardar nuevo parámetro',
         {
@@ -101,7 +102,7 @@ export function AgregarEditarParametroModal({
       <DialogContent className="overflow-y-auto max-h-screen">
         <DialogHeader>
           <DialogTitle>
-            {parametro ? 'Editar Parámetro' : 'Agregar Parámetro'}
+            {institucion ? 'Editar Parámetro' : 'Agregar Departamento'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -121,12 +122,12 @@ export function AgregarEditarParametroModal({
             />
             <FormField
               control={form.control}
-              name="nombre"
+              name="institucion"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nombre</FormLabel>
+                  <FormLabel>Institucion</FormLabel>
                   <FormControl>
-                    <Input id='nombre' {...field} />
+                    <Input id='institucion' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -134,36 +135,24 @@ export function AgregarEditarParametroModal({
             />
             <FormField
               control={form.control}
-              name="descripcion"
+              name="direccion"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Descripción</FormLabel>
                   <FormControl>
-                    <Textarea id='descripcion' {...field} />
+                    <Textarea id='ddireccion' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="grupo"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Grupo</FormLabel>
-                  <FormControl>
-                    <Input id='grupo' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+ 
             <div className="w-full flex justify-end gap-2">
               <Button type="button" variant={'outline'} onClick={onClose}>
                 Cancelar
               </Button>
               <Button type="submit">
-                {parametro ? 'Actualizar' : 'Crear'}
+                {institucion ? 'Actualizar' : 'Crear'}
               </Button>
             </div>
           </form>
