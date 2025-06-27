@@ -5,39 +5,39 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
-import { Pais } from '@/app/admin/(parametros)/Pais/componentes/types'
+import { Frontera } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/types'
 
-interface VerPaisModalProps {
-  pais: Pais | null
+interface VerFronteraModalProps {
+  frontera: Frontera | null
   isOpen: boolean
   onClose: () => void
 }
 
-export function VerPaisModal({
-  pais,
+export function VerFronteraModal({
+  frontera,
   isOpen,
   onClose,
-}: VerPaisModalProps) {
-  if (!pais) return null
+}: VerFronteraModalProps) {
+  if (!frontera) return null
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Detalles del Parámetro</DialogTitle>
+          <DialogTitle>Detalles de la Zona Fronteriza</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <span className="font-bold">Código:</span>
-            <span className="col-span-3">{pais.codigo}</span>
+            <span className="col-span-3">{frontera.codigo}</span>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <span className="font-bold">Nombre:</span>
-            <span className="col-span-3">{pais.pais}</span>
+            <span className="font-bold">Frontera:</span>
+            <span className="col-span-3">{frontera.frontera}</span>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <span className="font-bold">Descripción:</span>
-            <span className="col-span-3">{pais.descripcion}</span>
+            <span className="col-span-3">{frontera.descripcion}</span>
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
@@ -45,10 +45,10 @@ export function VerPaisModal({
             <span className="col-span-3">
               <Badge
                 variant={
-                  pais.estado === 'ACTIVO' ? 'success' : 'destructive'
+                  frontera.estado === 'ACTIVO' ? 'success' : 'destructive'
                 }
               >
-                {pais.estado}
+                {frontera.estado}
               </Badge>
             </span>
           </div>

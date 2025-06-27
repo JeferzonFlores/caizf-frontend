@@ -5,39 +5,39 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
-import { Departamento } from '@/app/admin/(parametros)/departamentos/componentes/types'
+import { Mercancia } from '@/app/admin/(parametros)/mercancia/componentes/types'
 
-interface VerDepartamentoModalProps {
-  departamento: Departamento | null
+interface VerMercanciaModalProps {
+  mercancia: Mercancia | null
   isOpen: boolean
   onClose: () => void
 }
 
-export function VerDepartamentoModal({
-  departamento,
+export function VerMercanciaModal({
+  mercancia,
   isOpen,
   onClose,
-}: VerDepartamentoModalProps) {
-  if (!departamento) return null
+}: VerMercanciaModalProps) {
+  if (!mercancia) return null
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Detalles del Departamento</DialogTitle>
+          <DialogTitle>Detalles de la Mercancia</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <span className="font-bold">Código:</span>
-            <span className="col-span-3">{departamento.codigo}</span>
+            <span className="col-span-3">{mercancia.codigo}</span>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <span className="font-bold">Departamento:</span>
-            <span className="col-span-3">{departamento.departamento}</span>
+            <span className="font-bold">Mercancia:</span>
+            <span className="col-span-3">{mercancia.mercancia}</span>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <span className="font-bold">Descripción:</span>
-            <span className="col-span-3">{departamento.descripcion}</span>
+            <span className="col-span-3">{mercancia.descripcion}</span>
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
@@ -45,10 +45,10 @@ export function VerDepartamentoModal({
             <span className="col-span-3">
               <Badge
                 variant={
-                  departamento.estado === 'ACTIVO' ? 'success' : 'destructive'
+                  mercancia.estado === 'ACTIVO' ? 'success' : 'destructive'
                 }
               >
-                {departamento.estado}
+                {mercancia.estado}
               </Badge>
             </span>
           </div>

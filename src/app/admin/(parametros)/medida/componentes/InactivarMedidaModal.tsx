@@ -1,4 +1,4 @@
-import { Departamento } from '@/app/admin/(parametros)/departamentos/componentes/types'
+import { Medida } from '@/app/admin/(parametros)/medida/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,35 +14,35 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface InactivarDepartamentoModalProps {
-  departamento: Departamento | null
+interface InactivarMedidaModalProps {
+  medida: Medida | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function InactivarDepartamentoModal({
-  departamento,
+export function InactivarMedidaModal({
+  medida,
   isOpen,
   onClose,
   onSuccess,
-}: InactivarDepartamentoModalProps) {
+}: InactivarMedidaModalProps) {
   const { sessionRequest } = useAuth()
 
   const handleInactivar = async () => {
-    if (!departamento) return
+    if (!medida) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/department/${departamento.id}/inactivacion`,
+        url: `/unit/${medida.id}/inactivacion`,
         method: 'PATCH',
       })
-      toast.success('Parámetro inactivado', {
+      toast.success('Medida inactivado', {
         description: MessageInterpreter(respuesta?.data),
       })
       onSuccess()
     } catch (error) {
-      print('Error al inactivar parámetro:', error)
+      print('Error al inactivar medida:', error)
       toast.error('Error', {
         description: MessageInterpreter(error),
       })
@@ -55,9 +55,9 @@ export function InactivarDepartamentoModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Inactivar departamento?</AlertDialogTitle>
+          <AlertDialogTitle>¿Inactivar medida?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea inactivar el parámetro {departamento?.departamento}?
+            ¿Está seguro que desea inactivar unidada de medida {medida?.unidad}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

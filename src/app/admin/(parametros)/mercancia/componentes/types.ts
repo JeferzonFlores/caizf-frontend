@@ -1,20 +1,19 @@
-export interface ZonaFrnteriza {
+export interface Mercancia {
   estado: string
   id: string
-  frontera: string
-  region_geografica: string
+  codigo: string
+  mercancia: string
   descripcion: string
-  latitud: number
-  longitud: number
-  idDepartamento: number
-  idPais: number
+  resolucion: string
+  idUnidad: number
+  idInstitucion: number
 }
 
-export interface ZonaFrnterizaResponse {
+export interface MercanciaResponse {
   finalizado: boolean
   mensaje: string
   datos: {
     total: number
-    filas: ZonaFrnteriza[]
+    filas: Mercancia[]
   }
 }

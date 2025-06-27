@@ -1,4 +1,4 @@
-import { Departamento } from '@/app/admin/(parametros)/departamentos/componentes/types'
+import { Institucion } from '@/app/admin/(parametros)/institucion/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,27 +14,27 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface InactivarDepartamentoModalProps {
-  departamento: Departamento | null
+interface InactivarInstitucionModalProps {
+  institucion: Institucion | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function InactivarDepartamentoModal({
-  departamento,
+export function InactivarInstitucionModal({
+  institucion,
   isOpen,
   onClose,
   onSuccess,
-}: InactivarDepartamentoModalProps) {
+}: InactivarInstitucionModalProps) {
   const { sessionRequest } = useAuth()
 
   const handleInactivar = async () => {
-    if (!departamento) return
+    if (!institucion) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/department/${departamento.id}/inactivacion`,
+        url: `/institution/${institucion.id}/inactivacion`,
         method: 'PATCH',
       })
       toast.success('Parámetro inactivado', {
@@ -55,9 +55,9 @@ export function InactivarDepartamentoModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Inactivar departamento?</AlertDialogTitle>
+          <AlertDialogTitle>¿Inactivar institución?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea inactivar el parámetro {departamento?.departamento}?
+            ¿Está seguro que desea inactivar el parámetro {institucion?.institucion}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

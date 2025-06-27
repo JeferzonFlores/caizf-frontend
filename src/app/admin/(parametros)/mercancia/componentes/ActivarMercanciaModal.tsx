@@ -1,4 +1,4 @@
-import { Departamento } from '@/app/admin/(parametros)/departamentos/componentes/types'
+import { Mercancia } from '@/app/admin/(parametros)/mercancia/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,35 +14,35 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface ActivarDepartamentoModalProps {
-  departamento: Departamento | null
+interface ActivarMercanciaModalProps {
+  mercancia: Mercancia | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function ActivarDepartamentoModal({
-  departamento,
+export function ActivarMercanciaModal({
+  mercancia,
   isOpen,
   onClose,
   onSuccess,
-}: ActivarDepartamentoModalProps) {
+}: ActivarMercanciaModalProps) {
   const { sessionRequest } = useAuth()
 
   const handleActivar = async () => {
-    if (!departamento) return
+    if (!mercancia) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/parametros/${departamento.id}/activacion`,
+        url: `/commodity/${mercancia.id}/activacion`,
         method: 'PATCH',
       })
-      toast.success('Parámetro activado', {
+      toast.success('Mercancia activado', {
         description: MessageInterpreter(respuesta?.data),
       })
       onSuccess()
     } catch (error) {
-      print('Error al activar parámetro:', error)
+      print('Error al activar mercancia:', error)
       toast.error('Error', {
         description: MessageInterpreter(error),
       })
@@ -57,7 +57,7 @@ export function ActivarDepartamentoModal({
         <AlertDialogHeader>
           <AlertDialogTitle>¿Activar parámetro?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea activar el parámetro {departamento?.departamento}?
+            ¿Está seguro que desea activar el parámetro {mercancia?.mercancia}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

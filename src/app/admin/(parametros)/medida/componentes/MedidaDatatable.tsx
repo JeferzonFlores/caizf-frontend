@@ -36,8 +36,8 @@ import { toast } from 'sonner'
 import { ParametrosFiltros } from '@/app/admin/(parametros)/medida/componentes/ParametrosFiltros'
 import { VerMedidaModal } from '@/app/admin/(parametros)/medida/componentes/VerMedidaModal'
 import { AgregarEditarMedidaModal } from '@/app/admin/(parametros)/medida/componentes/AgregarEditarMedidaModal' 
-import { ActivarMedidaModal } from '@/app/admin/(parametros)/medida/componentes/ActivarParametroModal'
-import { InactivarDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/InactivarParametroModal'
+import { ActivarMedidaModal } from '@/app/admin/(parametros)/medida/componentes/ActivarIMedidaModal'
+import { InactivarMedidaModal } from '@/app/admin/(parametros)/medida/componentes/InactivarMedidaModal'
 import {
   Medida,
   MedidaResponse,
@@ -338,11 +338,11 @@ export function MedidaDatatable() {
         />
       )}
       {inactivarModalOpen && (
-        <InactivarDepartamentoModal
-          departamento={selectedDepartamento}
+        <InactivarMedidaModal
+          medida={selectedMedida}
           isOpen={inactivarModalOpen}
           onClose={() => setInactivarModalOpen(false)}
-          onSuccess={reloadDepartamentos}
+          onSuccess={reloadMedidas}
         />
       )}
     </div>

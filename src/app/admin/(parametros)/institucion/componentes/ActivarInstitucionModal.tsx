@@ -1,4 +1,4 @@
-import { Departamento } from '@/app/admin/(parametros)/departamentos/componentes/types'
+import { Institucion } from '@/app/admin/(parametros)/institucion/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,35 +14,35 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface InactivarDepartamentoModalProps {
-  departamento: Departamento | null
+interface ActivarInstitucionModalProps {
+  institucion: Institucion | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function InactivarDepartamentoModal({
-  departamento,
+export function ActivarInstitucionModal({
+  institucion,
   isOpen,
   onClose,
   onSuccess,
-}: InactivarDepartamentoModalProps) {
+}: ActivarInstitucionModalProps) {
   const { sessionRequest } = useAuth()
 
-  const handleInactivar = async () => {
-    if (!departamento) return
+  const handleActivar = async () => {
+    if (!institucion) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/department/${departamento.id}/inactivacion`,
+        url: `/institution/${institucion.id}/activacion`,
         method: 'PATCH',
       })
-      toast.success('Parámetro inactivado', {
+      toast.success('Parámetro activado', {
         description: MessageInterpreter(respuesta?.data),
       })
       onSuccess()
     } catch (error) {
-      print('Error al inactivar parámetro:', error)
+      print('Error al activar parámetro:', error)
       toast.error('Error', {
         description: MessageInterpreter(error),
       })
@@ -55,16 +55,14 @@ export function InactivarDepartamentoModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Inactivar departamento?</AlertDialogTitle>
+          <AlertDialogTitle>¿Activar parámetro?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea inactivar el parámetro {departamento?.departamento}?
+            ¿Está seguro que desea activar el parámetro {institucion?.institucion}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={handleInactivar}>
-            Inactivar
-          </AlertDialogAction>
+          <AlertDialogAction onClick={handleActivar}>Activar</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

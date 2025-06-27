@@ -33,11 +33,11 @@ import {
 } from 'lucide-react'
 import { useDebounce } from 'use-debounce'
 import { toast } from 'sonner'
-import { ParametrosFiltros } from '@/app/admin/(configuracion)/parametros/componentes/ParametrosFiltros'
+import { ParametrosFiltros } from '@/app/admin/(parametros)/institucion/componentes/ParametrosFiltros'
 import { VerInstitucionModal } from '@/app/admin/(parametros)/institucion/componentes/VerInstitucionModal'
 import { AgregarEditarInstitucionModal } from '@/app/admin/(parametros)/institucion/componentes/AgregarEditarInstitucionModal' 
-import { ActivarDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/ActivarParametroModal'
-import { InactivarDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/InactivarParametroModal'
+import { ActivarInstitucionModal } from '@/app/admin/(parametros)/institucion/componentes/ActivarInstitucionModal'
+import { InactivarInstitucionModal } from '@/app/admin/(parametros)/institucion/componentes/InactivarInstitucionModal'
 import {
   Institucion,
   InstitucionResponse,
@@ -143,7 +143,7 @@ export function InstitucionDatatable() {
           {row.original.direccion}
         </div>
       ),
-      meta: { mobileTitle: 'Direccion' },
+      meta: { mobileTitle: 'Descripción' },
     },
 
     {
@@ -235,7 +235,7 @@ export function InstitucionDatatable() {
     setFilters({ filter: '' })
   }
 
-  const handleVerinstitucion = (institucion: Institucion) => {
+  const handleVerInstitucion = (institucion: Institucion) => {
     setSelectedInstitucion(institucion)
     setVerModalOpen(true)
   }
@@ -250,8 +250,8 @@ export function InstitucionDatatable() {
     setActivarModalOpen(true)
   }
 
-  const handleInactivarParametro = (departamento: Institucion) => {
-    setSelectedInstitucion(departamento)
+  const handleInactivarParametro = (institucion: Institucion) => {
+    setSelectedInstitucion(institucion)
     setInactivarModalOpen(true)
   }
 
@@ -264,7 +264,7 @@ export function InstitucionDatatable() {
   return (
     <div className="lg:px-8 lg:py-2 sm:px-1 sm:py-2">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-        <h1 className="text-2xl font-bold">Gestión de Instituciones</h1>
+        <h1 className="text-2xl font-bold">Gestion de Instituciones</h1>
         <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2">
           <Button id='buscarParametro' size={'sm'} onClick={toggleFilters} variant={'outline'}>
             {showFilters ? (
@@ -330,19 +330,19 @@ export function InstitucionDatatable() {
         />
       )}
       {activarModalOpen && (
-        <ActivarDepartamentoModal
-          departamento={selectedDepartamento}
+        <ActivarInstitucionModal
+          institucion={selectedInstitucion}
           isOpen={activarModalOpen}
           onClose={() => setActivarModalOpen(false)}
-          onSuccess={reloadDepartamentos}
+          onSuccess={reloadInstitucion}
         />
       )}
       {inactivarModalOpen && (
-        <InactivarDepartamentoModal
-          departamento={selectedDepartamento}
+        <InactivarInstitucionModal
+          institucion={selectedInstitucion}
           isOpen={inactivarModalOpen}
           onClose={() => setInactivarModalOpen(false)}
-          onSuccess={reloadDepartamentos}
+          onSuccess={reloadInstitucion}
         />
       )}
     </div>

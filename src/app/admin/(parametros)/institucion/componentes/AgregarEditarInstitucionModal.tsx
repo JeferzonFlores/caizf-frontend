@@ -69,7 +69,7 @@ export function AgregarEditarInstitucionModal({
           method: 'PATCH',
           data: values,
         })
-        toast.success('Parámetro actualizado con éxito', {
+        toast.success('Institución actualizado con éxito', {
           description: MessageInterpreter(result?.data),
         })
       } else {
@@ -78,7 +78,7 @@ export function AgregarEditarInstitucionModal({
           method: 'POST',
           data: values,
         })
-        toast.success('Parámetro creado con éxito', {
+        toast.success('Institución creado con éxito', {
           description: MessageInterpreter(respuesta?.data),
         })
       }
@@ -102,7 +102,7 @@ export function AgregarEditarInstitucionModal({
       <DialogContent className="overflow-y-auto max-h-screen">
         <DialogHeader>
           <DialogTitle>
-            {institucion ? 'Editar Parámetro' : 'Agregar Departamento'}
+            {institucion ? 'Editar Institución' : 'Agregar Institución'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>

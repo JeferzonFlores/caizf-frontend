@@ -1,4 +1,4 @@
-import { Departamento } from '@/app/admin/(parametros)/departamentos/componentes/types'
+import { Mercancia } from '@/app/admin/(parametros)/mercancia/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,35 +14,35 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface ActivarDepartamentoModalProps {
-  departamento: Departamento | null
+interface InactivarMercanciaModalProps {
+  mercancia: Mercancia | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function ActivarDepartamentoModal({
-  departamento,
+export function InactivarMercanciaModal({
+  mercancia,
   isOpen,
   onClose,
   onSuccess,
-}: ActivarDepartamentoModalProps) {
+}: InactivarMercanciaModalProps) {
   const { sessionRequest } = useAuth()
 
-  const handleActivar = async () => {
-    if (!departamento) return
+  const handleInactivar = async () => {
+    if (!mercancia) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/parametros/${departamento.id}/activacion`,
+        url: `/commodity/${mercancia.id}/inactivacion`,
         method: 'PATCH',
       })
-      toast.success('Parámetro activado', {
+      toast.success('Mercancia inactivado', {
         description: MessageInterpreter(respuesta?.data),
       })
       onSuccess()
     } catch (error) {
-      print('Error al activar parámetro:', error)
+      print('Error al inactivar mercancia:', error)
       toast.error('Error', {
         description: MessageInterpreter(error),
       })
@@ -55,14 +55,16 @@ export function ActivarDepartamentoModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Activar parámetro?</AlertDialogTitle>
+          <AlertDialogTitle>¿Inactivar mercancia?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea activar el parámetro {departamento?.departamento}?
+            ¿Está seguro que desea inactivar el mercancia {mercancia?.mercancia}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={handleActivar}>Activar</AlertDialogAction>
+          <AlertDialogAction onClick={handleInactivar}>
+            Inactivar
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

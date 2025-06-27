@@ -1,4 +1,4 @@
-import { Departamento } from '@/app/admin/(parametros)/departamentos/componentes/types'
+import { Mercancia } from '@/app/admin/(parametros)/mercancia/componentes/types'
 import {
   Dialog,
   DialogContent,
@@ -16,6 +16,13 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -24,8 +31,8 @@ import { toast } from 'sonner'
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface AgregarEditarDepartamentoModalProps {
-  departamento: Departamento | null
+interface AgregarEditarMercanciaModalProps {
+  mercancia: Mercancia | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
@@ -35,57 +42,70 @@ const formSchema = z.object({
   codigo: z.string().min(1, {
     message: 'El código es obligatorio.',
   }),
-  departamento: z.string().min(1, {
+  mercancia: z.string().min(1, {
     message: 'El nombre es obligatorio.',
+  }),
+
+    idUnidad: z.number().min(1, {
+    message: 'La unidad de medida es obligatorio.',
+    
+  }),
+
+      idInstitucion: z.number().min(1, {
+    message: 'La Institucion de medida es obligatorio.',
+    
   }),
   descripcion: z.string().optional(),
   grupo: z.string().optional(),
+  
 })
 
-export function AgregarEditarDepartamentoModal({
-  departamento,
+export function AgregarEditarMercanciaModal({
+  mercancia,
   isOpen,
   onClose,
   onSuccess,
-}: AgregarEditarDepartamentoModalProps) {
+}: AgregarEditarMercanciaModalProps) {
   const { sessionRequest } = useAuth()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      codigo: departamento?.codigo,
-      departamento: departamento?.departamento,
-      descripcion: departamento?.descripcion,
+      codigo: mercancia?.codigo,
+      mercancia: mercancia?.mercancia,
+      descripcion: mercancia?.descripcion,
+      idUnidad: mercancia?.idUnidad,
+      idInstitucion: mercancia?.idInstitucion,
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      if (departamento) {
+      if (mercancia) {
         const result = await sessionRequest({
-          url: `/department/${departamento.id}`,
+          url: `/commodity/${mercancia.id}`,
           method: 'PATCH',
           data: values,
         })
-        toast.success('Parámetro actualizado con éxito', {
+        toast.success('Mercancia actualizado con éxito', {
           description: MessageInterpreter(result?.data),
         })
       } else {
         const respuesta = await sessionRequest({
-          url: '/department',
+          url: '/commodity',
           method: 'POST',
           data: values,
         })
-        toast.success('Parámetro creado con éxito', {
+        toast.success('Mercancia creado con éxito', {
           description: MessageInterpreter(respuesta?.data),
         })
       }
       onSuccess()
       onClose()
     } catch (error) {
-      print('Error al guardar el parámetro:', error)
+      print('Error al guardar el Mercancia:', error)
       toast.error(
-        departamento
+        mercancia
           ? 'Error al actualizar parámetro'
           : 'Error al guardar nuevo parámetro',
         {
@@ -100,7 +120,7 @@ export function AgregarEditarDepartamentoModal({
       <DialogContent className="overflow-y-auto max-h-screen">
         <DialogHeader>
           <DialogTitle>
-            {departamento ? 'Editar Parámetro' : 'Agregar Departamento'}
+            {mercancia ? 'Editar Mercancia' : 'Agregar Mercancia'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -120,12 +140,12 @@ export function AgregarEditarDepartamentoModal({
             />
             <FormField
               control={form.control}
-              name="departamento"
+              name="mercancia"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Departamento</FormLabel>
+                  <FormLabel>Mercancia</FormLabel>
                   <FormControl>
-                    <Input id='departamento' {...field} />
+                    <Input id='mercancia' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -144,13 +164,63 @@ export function AgregarEditarDepartamentoModal({
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="idUnidad" 
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Unidad de Medida</FormLabel>
+                  <Select onValueChange={field.onChange} >
+                    <FormControl>
+
+                      <SelectTrigger className="w-[180px]" id="idUnidad">
+                        <SelectValue placeholder="Seleccione una unidad" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
  
+                      <SelectItem value="1">Kilogramo (KG)</SelectItem>
+                      <SelectItem value="2">Litro (L)</SelectItem>
+                      <SelectItem value="3">Unidad (U)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="idInstitucion" 
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Institución</FormLabel>
+                  <Select onValueChange={field.onChange} >
+                    <FormControl>
+
+                      <SelectTrigger className="w-[180px]" id="idUnidad">
+                        <SelectValue placeholder="Seleccione una Institución" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      
+                      <SelectItem value="1">MDPyEP</SelectItem>
+                      <SelectItem value="2">MAMyA</SelectItem>
+                      <SelectItem value="3">EMAPA</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <div className="w-full flex justify-end gap-2">
               <Button type="button" variant={'outline'} onClick={onClose}>
                 Cancelar
               </Button>
               <Button type="submit">
-                {departamento ? 'Actualizar' : 'Crear'}
+                {mercancia ? 'Actualizar' : 'Crear'}
               </Button>
             </div>
           </form>

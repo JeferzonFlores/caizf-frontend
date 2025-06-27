@@ -34,18 +34,18 @@ import {
 import { useDebounce } from 'use-debounce'
 import { toast } from 'sonner'
 import { ParametrosFiltros } from '@/app/admin/(configuracion)/parametros/componentes/ParametrosFiltros'
-import { VerDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/VerParametroModal'
-import { AgregarEditarDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/AgregarEditarDepartamentoModal' 
-import { ActivarDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/ActivarParametroModal'
-import { InactivarDepartamentoModal } from '@/app/admin/(parametros)/departamentos/componentes/InactivarParametroModal'
+import { VerFronteraModal } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/VerFronteraModal'
+import { AgregarEditarFronteraModal } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/AgregarEditarFronteraModal'
+import { ActivarFronteraModal } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/ActivarFronteraModal'
+import { InactivarFronteraModal } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/InactivarFronteraModal'
 import {
-  Departamento,
-  DepartamentosResponse,
-} from '@/app/admin/(parametros)/departamentos/componentes/types'
+  Frontera,
+  FronteraResponse,
+} from '@/app/admin/(parametros)/ZonaFronteriza/componentes/types'
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-export function DepartamentosDatatable() {
+export function FronteraDatatable() {
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -55,7 +55,7 @@ export function DepartamentosDatatable() {
     filter: '',
   })
   const [debouncedFilter] = useDebounce(filters.filter, 500)
-  const [selectedDepartamento, setSelectedDepartamento] = useState<Departamento | null>(
+  const [selectedPais, setSelectedPais] = useState<Pais | null>(
     null
   )
   const [verModalOpen, setVerModalOpen] = useState(false)
@@ -87,7 +87,7 @@ export function DepartamentosDatatable() {
     fetchPermissions().catch(print)
   }, [checkPermission])
 
-  const fetchDepartamentos = async () => {
+  const fetchParametros = async () => {
     const params: Record<string, string> = {
       pagina: (pagination.pageIndex + 1).toString(),
       limite: pagination.pageSize.toString(),
@@ -102,8 +102,8 @@ export function DepartamentosDatatable() {
       params.filtro = debouncedFilter.trim()
     }
 
-    const response = await sessionRequest<DepartamentosResponse>({
-      url: '/department',
+    const response = await sessionRequest<PaisResponse>({
+      url: '/country',
       method: 'get',
       params,
     })
@@ -112,16 +112,16 @@ export function DepartamentosDatatable() {
   }
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['departamentos', pagination, sorting, debouncedFilter],
-    queryFn: fetchDepartamentos,
+    queryKey: ['pais', pagination, sorting, debouncedFilter],
+    queryFn: fetchParametros,
     placeholderData: keepPreviousData,
   })
 
-  const reloadDepartamentos = async () => {
-    await queryClient.invalidateQueries({ queryKey: ['departamentos'] })
+  const reloadPais = async () => {
+    await queryClient.invalidateQueries({ queryKey: ['pais'] })
   }
 
-  const columns: ColumnDef<Departamento>[] = [
+  const columns: ColumnDef<Pais>[] = [
     {
       accessorKey: 'codigo',
       header: ({ column }) => <SortableHeader column={column} title="Código" />,
@@ -131,8 +131,8 @@ export function DepartamentosDatatable() {
       meta: { mobileTitle: 'Código' },
     },
     {
-      accessorKey: 'departamento',
-      header: ({ column }) => <SortableHeader column={column} title="Departamento" />,
+      accessorKey: 'pais',
+      header: ({ column }) => <SortableHeader column={column} title="Pais" />,
       meta: { mobileTitle: 'Nombre' },
     },
     {
@@ -167,7 +167,7 @@ export function DepartamentosDatatable() {
               title='Ver detalle'
               variant="outline"
               size="icon"
-              onClick={() => handleVerParametro(row.original)}
+              onClick={() => handleVerPais(row.original)}
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -178,7 +178,7 @@ export function DepartamentosDatatable() {
                 title="Editar"
                 variant="outline"
                 size="icon"
-                onClick={() => handleAgregarEditarDepartamento(row.original)}
+                onClick={() => handleAgregarEditarPais(row.original)}
               >
                 <Edit className="h-4 w-4" />
               </Button>
@@ -235,23 +235,23 @@ export function DepartamentosDatatable() {
     setFilters({ filter: '' })
   }
 
-  const handleVerParametro = (departamento: Departamento) => {
-    setSelectedDepartamento(departamento)
+  const handleVerPais = (pais: Pais) => {
+    setSelectedPais(pais)
     setVerModalOpen(true)
   }
 
-  const handleAgregarEditarDepartamento = (departamento: Departamento| null) => {
-    setSelectedDepartamento(departamento)
+  const handleAgregarEditarPais = (pais: Pais | null) => {
+    setSelectedPais(pais)
     setAgregarEditarModalOpen(true)
   }
 
-  const handleActivarParametro = (departamento: Departamento) => {
-    setSelectedDepartamento(departamento)
+  const handleActivarParametro = (pais: Pais) => {
+    setSelectedPais(pais)
     setActivarModalOpen(true)
   }
 
-  const handleInactivarParametro = (departamento: Departamento) => {
-    setSelectedDepartamento(departamento)
+  const handleInactivarParametro = (pais: Pais) => {
+    setSelectedPais(pais)
     setInactivarModalOpen(true)
   }
 
@@ -264,7 +264,7 @@ export function DepartamentosDatatable() {
   return (
     <div className="lg:px-8 lg:py-2 sm:px-1 sm:py-2">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-        <h1 className="text-2xl font-bold">Gestión de Departamentos</h1>
+        <h1 className="text-2xl font-bold">Gestión de Paises</h1>
         <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2">
           <Button id='buscarParametro' size={'sm'} onClick={toggleFilters} variant={'outline'}>
             {showFilters ? (
@@ -278,18 +278,18 @@ export function DepartamentosDatatable() {
             size={'sm'}
             variant={'outline'}
             onClick={async () => {
-              await reloadDepartamentos()
+              await reloadPais()
             }}
           >
             <RefreshCw className="mr-2 h-4 w-4" /> Recargar
           </Button>
           {permissions.create && (
             <Button
-              id='agregarDepartamento'
+              id='agregarParametro'
               size={'sm'}
-              onClick={() => handleAgregarEditarDepartamento(null)}
+              onClick={() => handleAgregarEditarPais(null)}
             >
-              <Plus className="mr-2 h-4 w-4" /> Agregar Departamento
+              <Plus className="mr-2 h-4 w-4" /> Agregar País
             </Button>
           )}
         </div>
@@ -315,34 +315,34 @@ export function DepartamentosDatatable() {
         />
       )}
       {verModalOpen && (
-        <VerDepartamentoModal
-          departamento={selectedDepartamento}
+        <VerPaisModal
+          pais={selectedPais}
           isOpen={verModalOpen}
           onClose={() => setVerModalOpen(false)}
         />
       )}
       {editarModalOpen && (
-        <AgregarEditarDepartamentoModal
-          departamento={selectedDepartamento}
+        <AgregarEditarPaisModal
+          pais={selectedPais}
           isOpen={editarModalOpen}
           onClose={() => setAgregarEditarModalOpen(false)}
-          onSuccess={reloadDepartamentos}
+          onSuccess={reloadPais}
         />
       )}
       {activarModalOpen && (
-        <ActivarDepartamentoModal
-          departamento={selectedDepartamento}
+        <ActivarPaisModal
+          pais={selectedPais}
           isOpen={activarModalOpen}
           onClose={() => setActivarModalOpen(false)}
-          onSuccess={reloadDepartamentos}
+          onSuccess={reloadPais}
         />
       )}
       {inactivarModalOpen && (
-        <InactivarDepartamentoModal
-          departamento={selectedDepartamento}
+        <InactivarPaisModal
+          pais={selectedPais}
           isOpen={inactivarModalOpen}
           onClose={() => setInactivarModalOpen(false)}
-          onSuccess={reloadDepartamentos}
+          onSuccess={reloadPais}
         />
       )}
     </div>
