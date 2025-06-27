@@ -33,15 +33,15 @@ import {
 } from 'lucide-react'
 import { useDebounce } from 'use-debounce'
 import { toast } from 'sonner'
-import { ParametrosFiltros } from '@/app/admin/(configuracion)/parametros/componentes/ParametrosFiltros'
-import { VerFronteraModal } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/VerFronteraModal'
-import { AgregarEditarFronteraModal } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/AgregarEditarFronteraModal'
-import { ActivarFronteraModal } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/ActivarFronteraModal'
-import { InactivarFronteraModal } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/InactivarFronteraModal'
+import { ParametrosFiltros } from '@/app/admin/(parametros)/frontera/componentes/ParametrosFiltros'
+import { VerFronteraModal } from '@/app/admin/(parametros)/frontera/componentes/VerFronteraModal'
+import { AgregarEditarFronteraModal } from '@/app/admin/(parametros)/frontera/componentes/AgregarEditarFronteraModal' 
+import { ActivarFronteraModal } from '@/app/admin/(parametros)/frontera/componentes/ActivarFronteraModal'
+import { InactivarFronteraModal } from '@/app/admin/(parametros)/frontera/componentes/InactivarFronteraModal'
 import {
   Frontera,
   FronteraResponse,
-} from '@/app/admin/(parametros)/ZonaFronteriza/componentes/types'
+} from '@/app/admin/(parametros)/frontera/componentes/types'
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
@@ -55,7 +55,7 @@ export function FronteraDatatable() {
     filter: '',
   })
   const [debouncedFilter] = useDebounce(filters.filter, 500)
-  const [selectedPais, setSelectedPais] = useState<Pais | null>(
+  const [selectedFrontera, setSelectedFrontera] = useState<Frontera | null>(
     null
   )
   const [verModalOpen, setVerModalOpen] = useState(false)
@@ -87,7 +87,7 @@ export function FronteraDatatable() {
     fetchPermissions().catch(print)
   }, [checkPermission])
 
-  const fetchParametros = async () => {
+  const fetchFrontera = async () => {
     const params: Record<string, string> = {
       pagina: (pagination.pageIndex + 1).toString(),
       limite: pagination.pageSize.toString(),
@@ -102,8 +102,8 @@ export function FronteraDatatable() {
       params.filtro = debouncedFilter.trim()
     }
 
-    const response = await sessionRequest<PaisResponse>({
-      url: '/country',
+    const response = await sessionRequest<FronteraResponse>({
+      url: '/border',
       method: 'get',
       params,
     })
@@ -112,16 +112,16 @@ export function FronteraDatatable() {
   }
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['pais', pagination, sorting, debouncedFilter],
-    queryFn: fetchParametros,
+    queryKey: ['medidas', pagination, sorting, debouncedFilter],
+    queryFn: fetchFrontera,
     placeholderData: keepPreviousData,
   })
 
-  const reloadPais = async () => {
-    await queryClient.invalidateQueries({ queryKey: ['pais'] })
+  const reloadFronteras = async () => {
+    await queryClient.invalidateQueries({ queryKey: ['medidas'] })
   }
 
-  const columns: ColumnDef<Pais>[] = [
+  const columns: ColumnDef<Frontera>[] = [
     {
       accessorKey: 'codigo',
       header: ({ column }) => <SortableHeader column={column} title="Código" />,
@@ -131,9 +131,9 @@ export function FronteraDatatable() {
       meta: { mobileTitle: 'Código' },
     },
     {
-      accessorKey: 'pais',
-      header: ({ column }) => <SortableHeader column={column} title="Pais" />,
-      meta: { mobileTitle: 'Nombre' },
+      accessorKey: 'frontera',
+      header: ({ column }) => <SortableHeader column={column} title="Frontera" />,
+      meta: { mobileTitle: 'Frontera' },
     },
     {
       accessorKey: 'descripcion',
@@ -167,7 +167,7 @@ export function FronteraDatatable() {
               title='Ver detalle'
               variant="outline"
               size="icon"
-              onClick={() => handleVerPais(row.original)}
+              onClick={() => handleVerFrontera(row.original)}
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -178,7 +178,7 @@ export function FronteraDatatable() {
                 title="Editar"
                 variant="outline"
                 size="icon"
-                onClick={() => handleAgregarEditarPais(row.original)}
+                onClick={() => handleAgregarEditarFrontera(row.original)}
               >
                 <Edit className="h-4 w-4" />
               </Button>
@@ -235,23 +235,23 @@ export function FronteraDatatable() {
     setFilters({ filter: '' })
   }
 
-  const handleVerPais = (pais: Pais) => {
-    setSelectedPais(pais)
+  const handleVerFrontera = (frontera: Frontera) => {
+    setSelectedFrontera(frontera)
     setVerModalOpen(true)
   }
 
-  const handleAgregarEditarPais = (pais: Pais | null) => {
-    setSelectedPais(pais)
+  const handleAgregarEditarFrontera = (frontera: Frontera | null) => {
+    setSelectedFrontera(frontera)
     setAgregarEditarModalOpen(true)
   }
 
-  const handleActivarParametro = (pais: Pais) => {
-    setSelectedPais(pais)
+  const handleActivarParametro = (frontera: Frontera) => {
+    setSelectedFrontera(frontera)
     setActivarModalOpen(true)
   }
 
-  const handleInactivarParametro = (pais: Pais) => {
-    setSelectedPais(pais)
+  const handleInactivarParametro = (frontera: Frontera) => {
+    setSelectedFrontera(frontera)
     setInactivarModalOpen(true)
   }
 
@@ -264,7 +264,7 @@ export function FronteraDatatable() {
   return (
     <div className="lg:px-8 lg:py-2 sm:px-1 sm:py-2">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-        <h1 className="text-2xl font-bold">Gestión de Paises</h1>
+        <h1 className="text-2xl font-bold">Zonas Fronterizas</h1>
         <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2">
           <Button id='buscarParametro' size={'sm'} onClick={toggleFilters} variant={'outline'}>
             {showFilters ? (
@@ -278,18 +278,18 @@ export function FronteraDatatable() {
             size={'sm'}
             variant={'outline'}
             onClick={async () => {
-              await reloadPais()
+              await reloadFronteras()
             }}
           >
             <RefreshCw className="mr-2 h-4 w-4" /> Recargar
           </Button>
           {permissions.create && (
             <Button
-              id='agregarParametro'
+              id='agregarDepartamento'
               size={'sm'}
-              onClick={() => handleAgregarEditarPais(null)}
+              onClick={() => handleAgregarEditarFrontera(null)}
             >
-              <Plus className="mr-2 h-4 w-4" /> Agregar País
+              <Plus className="mr-2 h-4 w-4" /> Agregar Frontera
             </Button>
           )}
         </div>
@@ -315,34 +315,34 @@ export function FronteraDatatable() {
         />
       )}
       {verModalOpen && (
-        <VerPaisModal
-          pais={selectedPais}
+        <VerFronteraModal
+          frontera={selectedFrontera}
           isOpen={verModalOpen}
           onClose={() => setVerModalOpen(false)}
         />
       )}
       {editarModalOpen && (
-        <AgregarEditarPaisModal
-          pais={selectedPais}
+        <AgregarEditarFronteraModal
+          frontera={selectedFrontera}
           isOpen={editarModalOpen}
           onClose={() => setAgregarEditarModalOpen(false)}
-          onSuccess={reloadPais}
+          onSuccess={reloadFronteras}
         />
       )}
       {activarModalOpen && (
-        <ActivarPaisModal
-          pais={selectedPais}
+        <ActivarFronteraModal
+          frontera={selectedFrontera}
           isOpen={activarModalOpen}
           onClose={() => setActivarModalOpen(false)}
-          onSuccess={reloadPais}
+          onSuccess={reloadFronteras}
         />
       )}
       {inactivarModalOpen && (
-        <InactivarPaisModal
-          pais={selectedPais}
+        <InactivarFronteraModal
+          frontera={selectedFrontera}
           isOpen={inactivarModalOpen}
           onClose={() => setInactivarModalOpen(false)}
-          onSuccess={reloadPais}
+          onSuccess={reloadFronteras}
         />
       )}
     </div>

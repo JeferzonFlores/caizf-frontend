@@ -1,15 +1,15 @@
-import { PaisDatatable } from '@/app/admin/(parametros)/Pais/componentes/PaisDatatable'
+import { FronteraDatatable } from '@/app/admin/(parametros)/frontera/componentes/FronteraDatatable'
 import { Metadata } from 'next'
 import { siteName } from '@/lib/utilities'
 
 export const metadata: Metadata = {
-  title: `Pais - ${siteName()}`,
+  title: `Frontera - ${siteName()}`,
 }
 
 export default function Page() {
   return (
     <div className="container p-1">
-      <PaisDatatable />
+      <FronteraDatatable />
     </div>
   )
 }

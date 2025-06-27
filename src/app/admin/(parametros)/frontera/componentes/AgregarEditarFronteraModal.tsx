@@ -1,4 +1,4 @@
-import { Pais } from '@/app/admin/(parametros)/Pais/componentes/types'
+import { Frontera } from '@/app/admin/(parametros)/frontera/componentes/types'
 import {
   Dialog,
   DialogContent,
@@ -24,8 +24,8 @@ import { toast } from 'sonner'
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface AgregarEditarPaisModalProps {
-  pais: Pais | null
+interface AgregarEditarFronteraModalProps {
+  frontera: Frontera | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
@@ -35,35 +35,35 @@ const formSchema = z.object({
   codigo: z.string().min(1, {
     message: 'El código es obligatorio.',
   }),
-  pais: z.string().min(1, {
+  unidad: z.string().min(1, {
     message: 'El nombre es obligatorio.',
   }),
   descripcion: z.string().optional(),
-
+  grupo: z.string().optional(),
 })
 
-export function AgregarEditarPaisModal({
-  pais,
+export function AgregarEditarFronteraModal({
+  frontera,
   isOpen,
   onClose,
   onSuccess,
-}: AgregarEditarPaisModalProps) {
+}: AgregarEditarFronteraModalProps) {
   const { sessionRequest } = useAuth()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      codigo: pais?.codigo,
-      pais: pais?.pais,
-      descripcion: pais?.descripcion,
+      codigo: frontera?.codigo,
+      unidad: frontera?.frontera,
+      descripcion: frontera?.descripcion,
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      if (pais) {
+      if (frontera) {
         const result = await sessionRequest({
-          url: `/country/${pais.id}`,
+          url: `/border/${frontera.id}`,
           method: 'PATCH',
           data: values,
         })
@@ -72,7 +72,7 @@ export function AgregarEditarPaisModal({
         })
       } else {
         const respuesta = await sessionRequest({
-          url: '/country',
+          url: '/border',
           method: 'POST',
           data: values,
         })
@@ -85,7 +85,7 @@ export function AgregarEditarPaisModal({
     } catch (error) {
       print('Error al guardar el parámetro:', error)
       toast.error(
-        pais
+        frontera
           ? 'Error al actualizar parámetro'
           : 'Error al guardar nuevo parámetro',
         {
@@ -100,7 +100,7 @@ export function AgregarEditarPaisModal({
       <DialogContent className="overflow-y-auto max-h-screen">
         <DialogHeader>
           <DialogTitle>
-            {pais ? 'Editar Parámetro' : 'Agregar Parámetro'}
+            {frontera ? 'Editar U./Frontera' : 'Agregar U./Frontera'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -120,12 +120,12 @@ export function AgregarEditarPaisModal({
             />
             <FormField
               control={form.control}
-              name="pais"
+              name="unidad"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Pais</FormLabel>
+                  <FormLabel>Unidad de Frontera</FormLabel>
                   <FormControl>
-                    <Input id='pais' {...field} />
+                    <Input id='unidad' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -144,13 +144,13 @@ export function AgregarEditarPaisModal({
                 </FormItem>
               )}
             />
-
+ 
             <div className="w-full flex justify-end gap-2">
               <Button type="button" variant={'outline'} onClick={onClose}>
                 Cancelar
               </Button>
               <Button type="submit">
-                {pais ? 'Actualizar' : 'Crear'}
+                {frontera ? 'Actualizar' : 'Crear'}
               </Button>
             </div>
           </form>

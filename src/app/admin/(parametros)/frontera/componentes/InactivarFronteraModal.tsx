@@ -1,4 +1,4 @@
-import { Pais } from '@/app/admin/(parametros)/Pais/componentes/types'
+import { Frontera } from '@/app/admin/(parametros)/frontera/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,35 +14,35 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface InactivarPaisModalProps {
-  pais: Pais | null
+interface InactivarFronteraModalProps {
+  frontera: Frontera | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function InactivarPaisModal({
-  pais,
+export function InactivarFronteraModal({
+  frontera,
   isOpen,
   onClose,
   onSuccess,
-}: InactivarPaisModalProps) {
+}: InactivarFronteraModalProps) {
   const { sessionRequest } = useAuth()
 
   const handleInactivar = async () => {
-    if (!pais) return
+    if (!frontera) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/country/${pais.id}/inactivacion`,
+        url: `/border/${frontera.id}/inactivacion`,
         method: 'PATCH',
       })
-      toast.success('Parámetro inactivado', {
+      toast.success('Frontera inactivado', {
         description: MessageInterpreter(respuesta?.data),
       })
       onSuccess()
     } catch (error) {
-      print('Error al inactivar parámetro:', error)
+      print('Error al inactivar frontera:', error)
       toast.error('Error', {
         description: MessageInterpreter(error),
       })
@@ -55,9 +55,9 @@ export function InactivarPaisModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Inactivar país?</AlertDialogTitle>
+          <AlertDialogTitle>¿Inactivar frontera?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea inactivar el parámetro {pais?.pais}?
+            ¿Está seguro que desea inactivar frontera {frontera?.frontera}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

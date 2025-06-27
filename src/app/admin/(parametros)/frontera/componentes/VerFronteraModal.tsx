@@ -5,7 +5,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
-import { Frontera } from '@/app/admin/(parametros)/ZonaFronteriza/componentes/types'
+import { Frontera } from '@/app/admin/(parametros)/frontera/componentes/types'
 
 interface VerFronteraModalProps {
   frontera: Frontera | null
@@ -24,7 +24,7 @@ export function VerFronteraModal({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Detalles de la Zona Fronteriza</DialogTitle>
+          <DialogTitle>Detalles de la Unidad de Frontera</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -32,7 +32,7 @@ export function VerFronteraModal({
             <span className="col-span-3">{frontera.codigo}</span>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <span className="font-bold">Frontera:</span>
+            <span className="font-bold">Unidad de frontera:</span>
             <span className="col-span-3">{frontera.frontera}</span>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">

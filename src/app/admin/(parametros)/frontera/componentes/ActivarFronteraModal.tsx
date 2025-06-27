@@ -1,4 +1,4 @@
-import { Pais } from '@/app/admin/(parametros)/Pais/componentes/types'
+import { Frontera } from '@/app/admin/(parametros)/frontera/componentes/types'
 import { useAuth } from '@/contexts/AuthProvider'
 import { toast } from 'sonner'
 import {
@@ -14,27 +14,27 @@ import {
 import { MessageInterpreter } from '@/lib/messageInterpreter'
 import { print } from '@/lib/print'
 
-interface ActivarPaisModalProps {
-  pais: Pais | null
+interface ActivarFronteraModalProps {
+ frontera: Frontera | null
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
 }
 
-export function ActivarPaisModal({
-  pais,
+export function ActivarFronteraModal({
+  frontera,
   isOpen,
   onClose,
   onSuccess,
-}: ActivarPaisModalProps) {
+}: ActivarFronteraModalProps) {
   const { sessionRequest } = useAuth()
 
   const handleActivar = async () => {
-    if (!pais) return
+    if (!frontera) return
 
     try {
       const respuesta = await sessionRequest({
-        url: `/parametros/${pais.id}/activacion`,
+        url: `/border/${frontera.id}/activacion`,
         method: 'PATCH',
       })
       toast.success('Parámetro activado', {
@@ -55,9 +55,9 @@ export function ActivarPaisModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Activar parámetro?</AlertDialogTitle>
+          <AlertDialogTitle>¿Activar Frontera?</AlertDialogTitle>
           <AlertDialogDescription>
-            ¿Está seguro que desea activar el parámetro {pais?.pais}?
+            ¿Está seguro que desea activar el frontera {frontera?.frontera}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
